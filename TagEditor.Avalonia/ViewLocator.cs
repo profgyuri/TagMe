@@ -1,5 +1,5 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
+using Autofac;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using TagEditor.Avalonia.ViewModels;
@@ -10,28 +10,26 @@ namespace TagEditor.Avalonia;
 /// Given a view model, returns the corresponding view if possible.
 /// </summary>
 [RequiresUnreferencedCode(
-    "Default implementation of ViewLocator involves reflection which may be trimmed away.",
+    "Default implementation of ViewLocator is changed from reflection to DI.",
     Url = "https://docs.avaloniaui.net/docs/concepts/view-locator")]
 public class ViewLocator : IDataTemplate
 {
-    public Control? Build(object? param)
+    private readonly IComponentContext _componentContext;
+
+    public ViewLocator(IComponentContext componentContext)
     {
-        if (param is null)
-            return null;
+        _componentContext = componentContext;
+    }
 
-        var name = param.GetType().FullName!.Replace("ViewModel", "View", StringComparison.Ordinal);
-        var type = Type.GetType(name);
-
-        if (type != null)
+    public Control Build(object data)
+    {
+        return data switch
         {
-            return (Control)Activator.CreateInstance(type)!;
-        }
-
-        return new TextBlock { Text = "Not Found: " + name };
+            //here go the data templates of content controls like so (windows don't qualify):
+            //MainViewModel => _componentContext.Resolve<MainWindow>(),
+            _ => new TextBlock { Text = $"No view for {data.GetType().Name}" }
+        };
     }
 
-    public bool Match(object? data)
-    {
-        return data is ViewModelBase;
-    }
+    public bool Match(object data) => data is ViewModelBase;
 }
