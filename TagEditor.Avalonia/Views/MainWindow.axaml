@@ -11,24 +11,69 @@
         Title="TagEditor.Avalonia">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainViewModel />
     </Design.DataContext>
+    
+    <Window.Resources>
+        <ContextMenu x:Key="ColumnHeaderMenu" x:Name="ColumnHeaderMenu">
+            <ContextMenu.Styles>
+                <Style Selector="MenuItem" x:DataType="DataGridColumn">
+                    <Setter Property="Header" Value="{Binding Header}" />
+                    <Setter Property="ToggleType" Value="CheckBox" />
+                    <Setter Property="IsChecked" Value="{Binding IsVisible, Mode=TwoWay}" />
+                    <Setter Property="StaysOpenOnClick" Value="True" />
+                </Style>
+            </ContextMenu.Styles>
+        </ContextMenu>
+    </Window.Resources>
 
     <Grid RowDefinitions="Auto *">
-        <Grid Grid.Row="0">
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
             <!-- Controls -->
-            <Button>
+            <Button Command="{Binding AddFilesCommand}" 
+                    ToolTip.Tip="Add files">
+                <icons:MaterialIcon Kind="FileDocumentAdd"/>
+            </Button>
+            <Button Command="{Binding AddFolderCommand}" 
+                    ToolTip.Tip="Add folder">
                 <icons:MaterialIcon Kind="FolderAdd"/>
             </Button>
-        </Grid>
+            <Button Command="{Binding ClearGridCommand}" 
+                    ToolTip.Tip="Clear grid">
+                <icons:MaterialIcon Kind="ClearCircle"/>
+            </Button>
+            <Separator Width="5"/>
+            <Button Command="{Binding TagsToFilenameCommand}"
+                    ToolTip.Tip="Tags to filename">
+                <StackPanel Orientation="Horizontal">
+                    <icons:MaterialIcon Kind="Tag"/>
+                    <icons:MaterialIcon Kind="ArrowRight"/>
+                    <icons:MaterialIcon Kind="FileDocument"/>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding FilenameToTagsCommand}"
+                    ToolTip.Tip="Filename to tags">
+                <StackPanel Orientation="Horizontal">
+                    <icons:MaterialIcon Kind="FileDocument"/>
+                    <icons:MaterialIcon Kind="ArrowRight"/>
+                    <icons:MaterialIcon Kind="Tag"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
         
-        <DataGrid Grid.Row="1" ItemsSource="{Binding TestStrings, UpdateSourceTrigger=LostFocus}"
-                  VerticalAlignment="Center" HorizontalAlignment="Center">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*" IsReadOnly="False"/>
-            </DataGrid.Columns>
+        <DataGrid Grid.Row="1" x:Name="Grid"
+                  ItemsSource="{Binding TrackList}"
+                  SelectionChanged="Grid_OnSelectionChanged"
+                  AutoGenerateColumns="True"
+                  CanUserResizeColumns="True"
+                  CanUserReorderColumns="True"
+                  CanUserSortColumns="True"
+                  SelectionMode="Extended">
+            <DataGrid.Styles>
+                <Style Selector="DataGridColumnHeader">
+                    <Setter Property="ContextMenu" Value="{StaticResource ColumnHeaderMenu}" />
+                </Style>
+            </DataGrid.Styles>
         </DataGrid>
     </Grid>
 
