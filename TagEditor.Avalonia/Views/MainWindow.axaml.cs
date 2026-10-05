@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using System.Linq;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Platform.Storage;
 using TagEditor.Avalonia.Models;
 using TagEditor.Avalonia.ViewModels;
 
@@ -29,5 +32,40 @@ public partial class MainWindow : Window
             foreach (var item in items)
                 vm.SelectedItems.Remove(item);
         }
+    }
+
+    private async void AddFiles_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var topLevel = GetTopLevel(this);
+        if (topLevel is null) return;
+        if (DataContext is not MainViewModel vm) return;
+        
+        var dialogResult = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "Choose Music Files",
+            AllowMultiple = true,
+            FileTypeFilter = [SupportedFileTypes.Audio]
+        });
+        
+        if (dialogResult.Count == 0) return;
+        
+        vm.AddFiles(dialogResult.Select(file => file.Path.LocalPath));
+    }
+
+    private async void AddFolder_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var topLevel = GetTopLevel(this);
+        if (topLevel is null) return;
+        if (DataContext is not MainViewModel vm) return;
+
+        var dialogResult = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+        {
+            Title = "Choose a Music Folder",
+            AllowMultiple = false
+        });
+        
+        if (dialogResult.Count == 0) return;
+        
+        vm.AddFolder(dialogResult[0].Path.LocalPath);
     }
 }

@@ -1,13 +1,24 @@
-using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using TagEditor.Avalonia.Files;
 using TagEditor.Avalonia.Models;
+using TagEditor.Avalonia.TagEditing;
 
 namespace TagEditor.Avalonia.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
+    private readonly ITrackFetcher  _trackFetcher;
+    private readonly ITagFilenameEditor  _tagFilenameEditor;
+
+    public MainViewModel(ITrackFetcher trackFetcher, ITagFilenameEditor tagFilenameEditor)
+    {
+        _trackFetcher = trackFetcher;
+        _tagFilenameEditor = tagFilenameEditor;
+    }
+
     [ObservableProperty] public partial ObservableCollection<Track> TrackList { get; set; } = new()
     {
         new()
@@ -44,37 +55,39 @@ public partial class MainViewModel : ViewModelBase
 
     [ObservableProperty] public partial ObservableCollection<Track> SelectedItems { get; set; } = new();
     
-    #region Commands
-
-    [RelayCommand]
-    private void AddFiles()
+    public void AddFiles(IEnumerable<string> files)
     {
-        
+        var tracks = _trackFetcher.GetFromFilePaths(files);
+        foreach (var track in tracks)
+        {
+            TrackList.Add(track);
+        }
     }
 
-    [RelayCommand]
-    private void AddFolder()
+    public void AddFolder(string folder)
     {
-        
+        var  tracks = _trackFetcher.GetFromFolderPath(folder);
+        foreach (var track in tracks)
+        {
+            TrackList.Add(track);
+        }
     }
 
     [RelayCommand]
     private void ClearGrid()
     {
-        
+        TrackList.Clear();
     }
 
     [RelayCommand]
     private void TagsToFilename()
     {
-        Console.WriteLine($"Tags to filename {SelectedItems.Count}");
+        _tagFilenameEditor.SetFilenameFromTags(SelectedItems);
     }
 
     [RelayCommand]
     private void FilenameToTags()
     {
-        Console.WriteLine($"Filename to filename {SelectedItems.Count}");
+        _tagFilenameEditor.SetTagsFromFilename(SelectedItems);
     }
-
-    #endregion
 }

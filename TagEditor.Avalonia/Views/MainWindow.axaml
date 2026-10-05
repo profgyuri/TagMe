@@ -30,11 +30,11 @@
     <Grid RowDefinitions="Auto *">
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <!-- Controls -->
-            <Button Command="{Binding AddFilesCommand}" 
+            <Button Click="AddFiles_OnClick"
                     ToolTip.Tip="Add files">
                 <icons:MaterialIcon Kind="FileDocumentAdd"/>
             </Button>
-            <Button Command="{Binding AddFolderCommand}" 
+            <Button Click="AddFolder_OnClick"
                     ToolTip.Tip="Add folder">
                 <icons:MaterialIcon Kind="FolderAdd"/>
             </Button>
