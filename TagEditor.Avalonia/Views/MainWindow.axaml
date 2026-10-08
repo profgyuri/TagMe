@@ -64,7 +64,7 @@
         <DataGrid Grid.Row="1" x:Name="Grid"
                   ItemsSource="{Binding TrackList}"
                   SelectionChanged="Grid_OnSelectionChanged"
-                  AutoGenerateColumns="True"
+                  AutoGenerateColumns="False"
                   CanUserResizeColumns="True"
                   CanUserReorderColumns="True"
                   CanUserSortColumns="True"
@@ -74,6 +74,16 @@
                     <Setter Property="ContextMenu" Value="{StaticResource ColumnHeaderMenu}" />
                 </Style>
             </DataGrid.Styles>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Artists" Binding="{Binding ArtistsDisplay, UpdateSourceTrigger=LostFocus}" />
+                <DataGridTextColumn Header="Title" Binding="{Binding Title, UpdateSourceTrigger=LostFocus}" />
+                <DataGridTextColumn Header="Genres" Binding="{Binding GenresDisplay, UpdateSourceTrigger=LostFocus}" />
+                <DataGridTextColumn Header="BPM" Binding="{Binding Bpm, UpdateSourceTrigger=LostFocus}" />
+                <DataGridTextColumn Header="Bitrate" Binding="{Binding BitRate}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Sample Rate" Binding="{Binding SampleRate}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="File Name" Binding="{Binding FileName, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Path" Binding="{Binding Path}" IsReadOnly="True"/>
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 
