@@ -59,6 +59,11 @@
                     <icons:MaterialIcon Kind="Tag"/>
                 </StackPanel>
             </Button>
+            <Separator Width="5"/>
+            <Button Click="MoveFiles_OnClick"
+                    ToolTip.Tip="Move files">
+                <icons:MaterialIcon Kind="FileDocumentMove"/>
+            </Button>
         </StackPanel>
         
         <DataGrid Grid.Row="1" x:Name="Grid"

@@ -68,4 +68,21 @@ public partial class MainWindow : Window
         
         vm.AddFolder(dialogResult[0].Path.LocalPath);
     }
+
+    private async void MoveFiles_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var topLevel = GetTopLevel(this);
+        if (topLevel is null) return;
+        if (DataContext is not MainViewModel vm) return;
+        
+        var dialogResult = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+        {
+            Title = "Choose a destination folder",
+            AllowMultiple = false
+        });
+        
+        if (dialogResult.Count == 0) return;
+        
+        await vm.MoveFilesAsync(dialogResult[0].Path.LocalPath);
+    }
 }

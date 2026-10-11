@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MsBox.Avalonia;
 using TagEditor.Avalonia.Files;
 using TagEditor.Avalonia.Models;
 using TagEditor.Avalonia.TagEditing;
@@ -41,6 +45,22 @@ public partial class MainViewModel : ViewModelBase
         foreach (var track in tracks)
         {
             TrackList.Add(track);
+        }
+    }
+    
+    public async Task MoveFilesAsync(string folder)
+    {
+        foreach (var track in SelectedItems)
+        {
+            try
+            {
+                track.Path = Path.Combine(folder, track.FileName);
+            }
+            catch (Exception ex)
+            {
+                var message = MessageBoxManager.GetMessageBoxStandard("Error", $"Error moving file: {ex.Message}");
+                await message.ShowAsync();
+            }
         }
     }
 
