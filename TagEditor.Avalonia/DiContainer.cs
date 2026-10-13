@@ -20,6 +20,9 @@ public static class DiContainer
         builder.RegisterType<MainWindow>().AsSelf();
         builder.RegisterType<MainViewModel>().AsSelf();
         
+        builder.RegisterType<FormulaWindow>().AsSelf();
+        builder.RegisterType<FormulaViewModel>().AsSelf();
+        
         builder.RegisterType<TrackFetcher>().As<ITrackFetcher>();
         builder.RegisterType<TagFilenameEditor>().As<ITagFilenameEditor>();
         

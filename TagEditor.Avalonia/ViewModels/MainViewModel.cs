@@ -48,6 +48,16 @@ public partial class MainViewModel : ViewModelBase
         }
     }
     
+    public void TagsToFilename(string formula)
+    {
+        _tagFilenameEditor.SetFilenameFromTags(SelectedItems, formula);
+    }
+
+    public void FilenameToTags(string formula)
+    {
+        _tagFilenameEditor.SetTagsFromFilename(SelectedItems, formula);
+    }
+    
     public async Task MoveFilesAsync(string folder)
     {
         foreach (var track in SelectedItems)
@@ -68,17 +78,5 @@ public partial class MainViewModel : ViewModelBase
     private void ClearGrid()
     {
         TrackList.Clear();
-    }
-
-    [RelayCommand]
-    private void TagsToFilename()
-    {
-        _tagFilenameEditor.SetFilenameFromTags(SelectedItems);
-    }
-
-    [RelayCommand]
-    private void FilenameToTags()
-    {
-        _tagFilenameEditor.SetTagsFromFilename(SelectedItems);
     }
 }

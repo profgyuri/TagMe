@@ -8,7 +8,7 @@
         x:Class="TagEditor.Avalonia.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="TagEditor.Avalonia">
+        Title="TagEditor">
 
     <Design.DataContext>
         <vm:MainViewModel />
@@ -43,7 +43,7 @@
                 <icons:MaterialIcon Kind="ClearCircle"/>
             </Button>
             <Separator Width="5"/>
-            <Button Command="{Binding TagsToFilenameCommand}"
+            <Button Click="TagsToFilename_OnClick"
                     ToolTip.Tip="Tags to filename">
                 <StackPanel Orientation="Horizontal">
                     <icons:MaterialIcon Kind="Tag"/>
@@ -51,7 +51,7 @@
                     <icons:MaterialIcon Kind="FileDocument"/>
                 </StackPanel>
             </Button>
-            <Button Command="{Binding FilenameToTagsCommand}"
+            <Button Click="FilenameToTags_OnClick"
                     ToolTip.Tip="Filename to tags">
                 <StackPanel Orientation="Horizontal">
                     <icons:MaterialIcon Kind="FileDocument"/>

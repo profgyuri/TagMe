@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Autofac;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
@@ -67,6 +69,30 @@ public partial class MainWindow : Window
         if (dialogResult.Count == 0) return;
         
         vm.AddFolder(dialogResult[0].Path.LocalPath);
+    }
+    
+    private async void TagsToFilename_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (await GetFormula() is not string formula) return;
+        if (DataContext is not MainViewModel vm) return;
+        
+        vm.TagsToFilename(formula);
+    }
+
+    private async void FilenameToTags_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (await GetFormula() is not string formula) return;
+        if (DataContext is not MainViewModel vm) return;
+        
+        vm.FilenameToTags(formula);
+    }
+    
+    private async Task<string?> GetFormula()
+    {
+        var context = DiContainer.GetContext();
+        var formulaWindow = context.Resolve<FormulaWindow>();
+        formulaWindow.DataContext = context.Resolve<FormulaViewModel>();
+        return await formulaWindow.ShowDialog<string?>(this);
     }
 
     private async void MoveFiles_OnClick(object? sender, RoutedEventArgs e)
