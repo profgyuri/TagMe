@@ -15,10 +15,25 @@ public class FilenameParserTests
             Genres = ["TestGenre"]
         };
         
-        var formula = "%artist% separator %title% (%genre%)";
+        var formula = "%Artist% separator %tiTle% (%genrE%)"; // casing shouldn't matter
         var expectedFilename = "TestArtist separator TestTitle (TestGenre)";
         
         var filename = FilenameParser.ParseFilename(testTrack, formula);
         Assert.Equal(expectedFilename, filename);
+    }
+
+    [Fact]
+    public void SetFilenameFromTags_Throws_WhenFormulaContainsBadMaskString()
+    {
+        var testTrack = new Track()
+        {
+            Artists = ["TestArtist"],
+            Title = "TestTitle",
+            Genres = ["TestGenre"]
+        };
+        
+        var formula = "%notexistingmask% separator %title% (%genre%)";
+        
+        Assert.Throws<NotSupportedException>(() => FilenameParser.ParseFilename(testTrack, formula));
     }
 }

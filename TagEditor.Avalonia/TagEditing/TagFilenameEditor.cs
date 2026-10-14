@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
+using System.IO;
 using TagEditor.Avalonia.Models;
 
 namespace TagEditor.Avalonia.TagEditing;
@@ -13,7 +12,7 @@ public class TagFilenameEditor : ITagFilenameEditor
         foreach (var track in tracks)
         {
             var filename = FilenameParser.ParseFilename(track, formula);
-            track.FileName = filename;
+            track.FileName = filename + Path.GetExtension(track.FileName);
         }
         
         return tracks;

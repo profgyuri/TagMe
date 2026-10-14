@@ -37,10 +37,13 @@ public partial class Track
                     && !string.IsNullOrEmpty(_oldProperties[nameof(Path)]) 
                     && !string.IsNullOrEmpty(newPath))
                 {
-                    File.Move(_oldProperties[nameof(Path)], newPath);
                     if (e.PropertyName is not nameof(Path))
                     {
                         Path = newPath;
+                    }
+                    else
+                    {
+                        File.Move(_oldProperties[nameof(Path)], newPath);
                     }
                 }
             }
