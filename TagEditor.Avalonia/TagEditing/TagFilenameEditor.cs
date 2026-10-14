@@ -20,6 +20,11 @@ public class TagFilenameEditor : ITagFilenameEditor
 
     public IEnumerable<Track> SetTagsFromFilename(ObservableCollection<Track> tracks, string formula)
     {
-        throw new System.NotImplementedException();
+        foreach (var track in tracks)
+        {
+            TagParser.ApplyTagsFromFilename(track, formula);
+        }
+        
+        return tracks;
     }
 }

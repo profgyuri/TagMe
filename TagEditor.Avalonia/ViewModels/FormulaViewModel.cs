@@ -9,10 +9,7 @@ namespace TagEditor.Avalonia.ViewModels;
 public partial class FormulaViewModel : ViewModelBase
 {
     [ObservableProperty] public partial string Formula { get; set; } = "";
-    [ObservableProperty] public partial Dictionary<string, string> ReadTags { get; set; } = new()
-    {
-        ["Filename"] = ""
-    };
+    [ObservableProperty] public partial Dictionary<string, string> ReadTags { get; set; } = new();
 
     public bool IsTagsToFilename;
     public Track? PreviewTrack;
@@ -30,6 +27,8 @@ public partial class FormulaViewModel : ViewModelBase
             };
             return;
         }
+        
+        ReadTags = TagParser.ParseTags(PreviewTrack.FileName, Formula) ?? new();
         
         OnPropertyChanged(nameof(ReadTags));
     }

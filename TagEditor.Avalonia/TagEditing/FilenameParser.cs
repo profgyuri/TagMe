@@ -7,6 +7,10 @@ namespace TagEditor.Avalonia.TagEditing;
 
 public static class FilenameParser
 {
+    /// <summary>
+    /// Gets the filename from the tags
+    /// </summary>
+    /// <returns>The filename without the extension</returns>
     public static string ParseFilename(Track track, string formula)
     {
         var pos = 0;
