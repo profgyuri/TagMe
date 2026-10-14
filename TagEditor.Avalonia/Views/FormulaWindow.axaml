@@ -6,8 +6,9 @@
         x:DataType="vm:FormulaViewModel"
         mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="350"
         Width="400" Height="350"
+        WindowStartupLocation="CenterOwner"
         x:Class="TagEditor.Avalonia.Views.FormulaWindow"
-        Title="FormulaWindow">
+        Title="Formula Editor">
     
     <Design.DataContext>
         <vm:FormulaViewModel />
@@ -17,6 +18,19 @@
           Margin="8">
         <TextBox Grid.Row="0"
                  Text="{Binding Formula}"/>
+        
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding ReadTags}"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="75, *">
+                        <Line Grid.Column="0" Grid.ColumnSpan="2"/>
+                        <TextBlock Grid.Column="0" Text="{Binding Key}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Value}"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
         
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Ok"
