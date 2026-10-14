@@ -17,9 +17,9 @@
     <Grid RowDefinitions="Auto * Auto"
           Margin="8">
         <TextBox Grid.Row="0"
-                 Text="{Binding Formula}"/>
+                 Text="{Binding Formula, UpdateSourceTrigger=PropertyChanged}"/>
         
-        <ItemsControl Grid.Row="2" ItemsSource="{Binding ReadTags}"
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding ReadTags}"
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>

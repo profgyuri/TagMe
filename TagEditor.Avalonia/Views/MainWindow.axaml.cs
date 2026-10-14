@@ -73,7 +73,7 @@ public partial class MainWindow : Window
     
     private async void TagsToFilename_OnClick(object? sender, RoutedEventArgs e)
     {
-        if (await GetFormula() is not string formula) return;
+        if (await GetFormula(isTagsToFilename: true) is not string formula) return;
         if (DataContext is not MainViewModel vm) return;
         
         vm.TagsToFilename(formula);
@@ -81,17 +81,24 @@ public partial class MainWindow : Window
 
     private async void FilenameToTags_OnClick(object? sender, RoutedEventArgs e)
     {
-        if (await GetFormula() is not string formula) return;
+        if (await GetFormula(isTagsToFilename: false) is not string formula) return;
         if (DataContext is not MainViewModel vm) return;
         
         vm.FilenameToTags(formula);
     }
     
-    private async Task<string?> GetFormula()
+    private async Task<string?> GetFormula(bool isTagsToFilename)
     {
+        if (DataContext is not MainViewModel vm) return null;
+        
         var context = DiContainer.GetContext();
         var formulaWindow = context.Resolve<FormulaWindow>();
         formulaWindow.DataContext = context.Resolve<FormulaViewModel>();
+
+        var formulaWindowDataContext = (FormulaViewModel)formulaWindow.DataContext;
+        formulaWindowDataContext.IsTagsToFilename = isTagsToFilename;
+        formulaWindowDataContext.PreviewTrack = vm.SelectedItems[0];
+        
         return await formulaWindow.ShowDialog<string?>(this);
     }
 
