@@ -23,6 +23,7 @@ public class TrackFetcher : ITrackFetcher
     private Track AnalyzeFilePath(string path)
     {
         var file = TagLib.File.Create(path);
+        Console.WriteLine(file.Tag);
         return new Track()
         {
             Artists = AsSeparated(file.Tag.Performers),

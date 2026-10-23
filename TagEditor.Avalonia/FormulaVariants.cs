@@ -12,7 +12,10 @@ public static class FormulaVariants
         {
             nameof(Track.Artists) => "%artist%",
             nameof(Track.Genres) => "%genre%",
-            nameof(Track.Title) or nameof(Track.Bpm)or nameof(Track.SampleRate) or nameof(Track.FileName) => $"%{fieldName.ToLowerInvariant()}%",
+            nameof(Track.Title) 
+                or nameof(Track.Bpm) 
+                or nameof(Track.SampleRate) 
+                or nameof(Track.FileName) => $"%{fieldName.ToLowerInvariant()}%",
             _ => throw new NotSupportedException($"Given field name '{fieldName}' is invalid"),
         };
     }
@@ -27,6 +30,7 @@ public static class FormulaVariants
             "%bitrate%" => track.BitRate.ToString(CultureInfo.InvariantCulture),
             "%samplerate%" => track.SampleRate.ToString(CultureInfo.InvariantCulture),
             "%bpm%" => track.Bpm.ToString(CultureInfo.InvariantCulture),
+            "%filename%" => track.FileName,
             _ => throw new NotSupportedException($"Given formula '{formula}' is invalid"),
         };
     }

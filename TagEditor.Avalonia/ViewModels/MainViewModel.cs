@@ -14,8 +14,8 @@ namespace TagEditor.Avalonia.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    private readonly ITrackFetcher  _trackFetcher;
-    private readonly ITagFilenameEditor  _tagFilenameEditor;
+    private readonly ITrackFetcher  _trackFetcher = null!;
+    private readonly ITagFilenameEditor  _tagFilenameEditor = null!;
 
     public MainViewModel()
     { }

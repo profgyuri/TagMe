@@ -21,15 +21,15 @@ public class ViewLocator : IDataTemplate
         _componentContext = componentContext;
     }
 
-    public Control Build(object data)
+    public Control Build(object? data)
     {
         return data switch
         {
             //here go the data templates of content controls like so (windows don't qualify):
             //MainViewModel => _componentContext.Resolve<MainWindow>(),
-            _ => new TextBlock { Text = $"No view for {data.GetType().Name}" }
+            _ => new TextBlock { Text = $"No view for {data?.GetType().Name ?? "null"}" }
         };
     }
 
-    public bool Match(object data) => data is ViewModelBase;
+    public bool Match(object? data) => data is ViewModelBase;
 }
