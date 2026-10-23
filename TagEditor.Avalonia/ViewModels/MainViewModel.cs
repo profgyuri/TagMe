@@ -68,7 +68,7 @@ public partial class MainViewModel : ViewModelBase
             }
             catch (Exception ex)
             {
-                var message = MessageBoxManager.GetMessageBoxStandard("Error", $"Error moving file: {ex.Message}");
+                var message = MessageBoxManager.GetMessageBoxStandard("Error", $"Couldn't move file: {ex.Message}");
                 await message.ShowAsync();
             }
         }

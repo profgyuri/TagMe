@@ -1,5 +1,3 @@
-using System;
-using System.Globalization;
 using System.Text;
 using TagEditor.Avalonia.Models;
 
@@ -29,7 +27,7 @@ public static class FilenameParser
                 var mask = sb.ToString();
                 sb.Clear();
                 
-                result.Append(ParseMask(track, mask));
+                result.Append(FormulaVariants.GetFieldValueForFormula(track, mask));
             }
             else if (c == '%')
             {
@@ -47,19 +45,5 @@ public static class FilenameParser
         result.Append(sb);
         
         return result.ToString().Trim();
-    }
-    
-    static string ParseMask(Track track, string mask)
-    {
-        return mask.ToLower() switch
-        {
-            "%artist%" => track.ArtistsDisplay,
-            "%title%" => track.Title,
-            "%genre%" => track.GenresDisplay,
-            "%bitrate%" => track.BitRate.ToString(CultureInfo.InvariantCulture),
-            "%samplerate%" => track.SampleRate.ToString(CultureInfo.InvariantCulture),
-            "%bpm%" => track.Bpm.ToString(CultureInfo.InvariantCulture),
-            _ => throw new NotSupportedException(),
-        };
     }
 }

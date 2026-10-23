@@ -11,8 +11,8 @@ public partial class FormulaViewModel : ViewModelBase
     [ObservableProperty] public partial string Formula { get; set; } = "";
     [ObservableProperty] public partial Dictionary<string, string> ReadTags { get; set; } = new();
 
-    public bool IsTagsToFilename;
-    public Track? PreviewTrack;
+    public bool IsTagsToFilename { get; set; }
+    public Track? PreviewTrack { get; set; }
 
     partial void OnFormulaChanged(string value)
     {

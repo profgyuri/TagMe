@@ -16,8 +16,19 @@
     
     <Grid RowDefinitions="Auto * Auto"
           Margin="8">
-        <TextBox Grid.Row="0"
-                 Text="{Binding Formula, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="0" x:Name="FormulaTextBox" 
+                 Text="{Binding Formula, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Artists"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Title"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Genres"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Bpm"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="SampleRate" IsEnabled="{Binding IsTagsToFilename}"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Filename" IsEnabled="{Binding IsTagsToFilename}"/>
+                </ContextMenu>
+            </TextBox.ContextMenu>
+        </TextBox>
         
         <ItemsControl Grid.Row="1" ItemsSource="{Binding ReadTags}"
                       ScrollViewer.VerticalScrollBarVisibility="Auto">

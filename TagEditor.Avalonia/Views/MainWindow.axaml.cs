@@ -89,7 +89,7 @@ public partial class MainWindow : Window
     
     private async Task<string?> GetFormula(bool isTagsToFilename)
     {
-        if (DataContext is not MainViewModel vm) return null;
+        if (DataContext is not MainViewModel {SelectedItems.Count: > 0 } vm) return null;
         
         var context = DiContainer.GetContext();
         var formulaWindow = context.Resolve<FormulaWindow>();

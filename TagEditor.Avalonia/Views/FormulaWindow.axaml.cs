@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using TagEditor.Avalonia.ViewModels;
@@ -21,5 +22,14 @@ public partial class FormulaWindow : Window
     private void CancelButton_OnClick(object? sender, RoutedEventArgs e)
     {
         Close(null);
+    }
+
+    private void ContextMenuItem_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem item) return;
+        
+        var caretPosition = FormulaTextBox.CaretIndex;
+        var oldText = FormulaTextBox.Text;
+        FormulaTextBox.Text = oldText?.Insert(caretPosition, FormulaVariants.GetFormulaVariantForField((string)item.Header!));
     }
 }
