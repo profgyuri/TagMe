@@ -15,7 +15,7 @@ public class TagParserTests
             Genres = ["TestGenre"],
             FileName = "TestArtist - TestTitle.wav"
         };
-        var formula = "%fartist% - %title%";
+        var formula = "%fartists% - %title%";
         
         TagParser.ApplyTagsFromFilename(testTrack, formula);
         
@@ -34,7 +34,7 @@ public class TagParserTests
             Genres = ["TestGenre"],
             FileName = "NewArtist - NewTitle (NewGenre).wav"
         };
-        var formula = "%Artist% - %tiTle% (%genrE%)";
+        var formula = "%Artists% - %tiTle% (%genrEs%)";
         
         TagParser.ApplyTagsFromFilename(testTrack, formula);
         

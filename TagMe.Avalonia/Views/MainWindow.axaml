@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:icons="using:Material.Icons.Avalonia"
         xmlns:viewModels="clr-namespace:TagMe.Avalonia.ViewModels"
+        xmlns:models="clr-namespace:TagMe.Avalonia.Models"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TagMe.Avalonia.Views.MainWindow"
         x:DataType="viewModels:MainViewModel"
@@ -71,9 +72,11 @@
                   SelectionChanged="Grid_OnSelectionChanged"
                   AutoGenerateColumns="False"
                   CanUserResizeColumns="True"
-                  CanUserReorderColumns="True"
+                  CanUserReorderColumns="False"
                   CanUserSortColumns="True"
-                  SelectionMode="Extended">
+                  SelectionMode="Extended"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto">
             <DataGrid.Styles>
                 <Style Selector="DataGridColumnHeader">
                     <Setter Property="ContextMenu" Value="{StaticResource ColumnHeaderMenu}" />
@@ -88,6 +91,56 @@
                 <DataGridTextColumn Header="Sample Rate" Binding="{Binding SampleRate}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="File Name" Binding="{Binding FileName, UpdateSourceTrigger=LostFocus}"/>
                 <DataGridTextColumn Header="Path" Binding="{Binding Path}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Artists' Roles" Binding="{Binding ArtistsRoleDisplay, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Album Artists" Binding="{Binding AlbumArtistsDisplay, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Composers" Binding="{Binding ComposersDisplay, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Album" Binding="{Binding Album, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Comment" Binding="{Binding Comment, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Year" Binding="{Binding Year, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Track no." Binding="{Binding TrackNumber, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Disc no." Binding="{Binding DiscNumber, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Lyrics" Binding="{Binding Lyrics, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Grouping" Binding="{Binding Grouping, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Conductor" Binding="{Binding Conductor, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Copyright" Binding="{Binding Copyright, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Album Gain" Binding="{Binding ReplayGainAlbumGain, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Album Peak" Binding="{Binding ReplayGainAlbumPeak, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Track Gain" Binding="{Binding ReplayGainTrackGain, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Track Peak" Binding="{Binding ReplayGainTrackPeak, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Initial Key" Binding="{Binding InitialKey, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Remixed By" Binding="{Binding RemixedBy, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Publisher" Binding="{Binding Publisher, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="ISRC" Binding="{Binding ISRC, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Length" Binding="{Binding Length, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Duration" Binding="{Binding Duration, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Bits per Sample" Binding="{Binding BitsPerSample, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Audio Channels" Binding="{Binding AudioChannels, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="MusicBrainz Artist ID" Binding="{Binding MusicBrainzArtistId, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="MusicBrainz Track ID" Binding="{Binding MusicBrainzTrackId, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="MusicBrainz Disc ID" Binding="{Binding MusicBrainzDiscId, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="MusicBrainz Release Artist ID" Binding="{Binding MusicBrainzReleaseArtistId, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="MusicBrainz Release Country" Binding="{Binding MusicBrainzReleaseCountry, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="MusicBrainz Release Group ID" Binding="{Binding MusicBrainzReleaseGroupId, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="MusicBrainz Release ID" Binding="{Binding MusicBrainzReleaseId, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="MusicBrainz Release Status" Binding="{Binding MusicBrainzReleaseStatus, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="MusicBrainz Release Type" Binding="{Binding MusicBrainzReleaseType, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="MusicIP ID" Binding="{Binding MusicIpId, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Amazon ID" Binding="{Binding AmazonId, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTemplateColumn Header="Cover">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="models:Track">
+                            <Image Source="{Binding Cover}" Width="48" Height="48" Stretch="UniformToFill" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate x:DataType="models:Track">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Image Source="{Binding Cover}" Width="48" Height="48" Stretch="UniformToFill" />
+                                <Button Content="Change..." Click="ChangeCoverButton_OnClick"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

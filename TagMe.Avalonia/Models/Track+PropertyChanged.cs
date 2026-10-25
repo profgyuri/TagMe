@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.IO;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+using Avalonia.Media.Imaging;
+using TagLib;
+using File = System.IO.File;
 
 namespace TagMe.Avalonia.Models;
 
@@ -24,6 +28,12 @@ public partial class Track
             || string.IsNullOrEmpty(Path) || string.IsNullOrEmpty(FileName)
             || _oldProperties[e.PropertyName] == GetValue(e.PropertyName))
         {
+            return;
+        }
+        
+        if (e.PropertyName is nameof(Cover) && _pendingCover is null)
+        {
+            base.OnPropertyChanged(e);
             return;
         }
         
@@ -109,20 +119,35 @@ public partial class Track
         }
 
         tag.BeatsPerMinute = (uint)track.Bpm;
+        
+        // RiffInfoTag doesn't support pictures
+        if (_pendingCover is not null && tag is not TagLib.Riff.InfoTag)
+        {
+            tag.Pictures = new[] { _pendingCover };
+        }
+    }
+    
+    private IPicture? _pendingCover;
+    
+    public void SetCover(IPicture picture, Bitmap thumbnail)
+    {
+        _pendingCover = picture;
+        Cover = thumbnail;
     }
     
     private string GetValue(string propertyName)
     {
         return propertyName switch
         {
-            nameof(Artists) => ArtistsDisplay,
+            nameof(Artists) or nameof(ArtistsDisplay) => ArtistsDisplay,
             nameof(Title) => Title,
-            nameof(Genres) => string.Join(", ", Genres),
+            nameof(Genres) or nameof(GenresDisplay) => string.Join(", ", Genres),
             nameof(Bpm) => Bpm.ToString(CultureInfo.InvariantCulture),
             nameof(SampleRate) => SampleRate.ToString(CultureInfo.InvariantCulture),
             nameof(BitRate) => BitRate.ToString(CultureInfo.InvariantCulture),
             nameof(FileName) => FileName,
             nameof(Path) => Path,
+            nameof(Cover) => Cover is null ? "" : RuntimeHelpers.GetHashCode(Cover).ToString(CultureInfo.InvariantCulture),
             _ => ""
         };
     }

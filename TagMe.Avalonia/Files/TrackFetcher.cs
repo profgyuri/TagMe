@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,34 +16,59 @@ public class TrackFetcher : ITrackFetcher
     {
         return new DirectoryInfo(path)
             .EnumerateFiles()
-            .Select(fi => AnalyzeFilePath(fi.FullName));
+            .Select(info => AnalyzeFilePath(info.FullName));
     }
 
     private Track AnalyzeFilePath(string path)
     {
         var file = TagLib.File.Create(path);
-        Console.WriteLine(file.Tag);
-        return new Track()
+        
+        return new Track
         {
-            Artists = AsSeparated(file.Tag.Performers),
-            BitRate = file.Properties.AudioBitrate,
-            Bpm = file.Tag.BeatsPerMinute,
-            Genres = AsSeparated(file.Tag.Genres),
-            Path = path,
-            FileName = new FileInfo(path).Name,
-            SampleRate = file.Properties.AudioSampleRate,
+            Artists = file.Tag.Performers,
             Title = file.Tag.Title,
+            Genres = file.Tag.Genres,
+            Bpm = file.Tag.BeatsPerMinute,
+            SampleRate = file.Properties.AudioSampleRate,
+            BitRate = file.Properties.AudioBitrate,
+            ArtistsRoles = file.Tag.PerformersRole,
+            AlbumArtists = file.Tag.AlbumArtists,
+            Composers = file.Tag.Composers,
+            Album = file.Tag.Album,
+            Comment = file.Tag.Comment,
+            Year = file.Tag.Year,
+            TrackNumber = file.Tag.Track,
+            DiscNumber = file.Tag.Disc,
+            Lyrics = file.Tag.Lyrics,
+            Grouping = file.Tag.Grouping,
+            Conductor = file.Tag.Conductor,
+            Copyright = file.Tag.Copyright,
+            MusicBrainzArtistId = file.Tag.MusicBrainzArtistId,
+            MusicBrainzDiscId = file.Tag.MusicBrainzDiscId,
+            MusicBrainzReleaseArtistId = file.Tag.MusicBrainzReleaseArtistId,
+            MusicBrainzReleaseCountry = file.Tag.MusicBrainzReleaseCountry,
+            MusicBrainzReleaseGroupId = file.Tag.MusicBrainzReleaseGroupId,
+            MusicBrainzReleaseId = file.Tag.MusicBrainzReleaseId,
+            MusicBrainzReleaseStatus = file.Tag.MusicBrainzReleaseStatus,
+            MusicBrainzReleaseType = file.Tag.MusicBrainzReleaseType,
+            MusicBrainzTrackId = file.Tag.MusicBrainzTrackId,
+            MusicIpId = file.Tag.MusicIpId,
+            AmazonId = file.Tag.AmazonId,
+            ReplayGainAlbumGain = file.Tag.ReplayGainAlbumGain,
+            ReplayGainAlbumPeak = file.Tag.ReplayGainAlbumPeak,
+            ReplayGainTrackGain = file.Tag.ReplayGainTrackGain,
+            ReplayGainTrackPeak = file.Tag.ReplayGainTrackPeak,
+            InitialKey = file.Tag.InitialKey,
+            RemixedBy = file.Tag.RemixedBy,
+            Publisher = file.Tag.Publisher,
+            ISRC = file.Tag.ISRC,
+            Length = file.Tag.Length,
+            Duration = file.Properties.Duration,
+            Cover = file.Tag.Pictures.LoadCover(),
+            BitsPerSample = file.Properties.BitsPerSample,
+            AudioChannels = file.Properties.AudioChannels,
+            FileName = new FileInfo(path).Name,
+            Path = path,
         };
-
-        string[] AsSeparated(string[] array)
-        {
-            char[] separators = [';', '/'];
-            
-            return array
-                .SelectMany(p => p.Split(separators, StringSplitOptions.RemoveEmptyEntries))
-                .Select(a => a.Trim())
-                .Where(a => a.Length > 0)
-                .ToArray();
-        }
     }
 }

@@ -15,7 +15,7 @@ public static class TagParser
 
     // lining up only writeable masks
     private static readonly HashSet<string> ParsableMasks =
-        new(StringComparer.OrdinalIgnoreCase) { "artist", "title", "genre", "bpm" };
+        new(StringComparer.OrdinalIgnoreCase) { "artists", "title", "genres", "bpm" };
 
     /// <summary>
     /// Gets the tags from the filename
@@ -62,18 +62,21 @@ public static class TagParser
         if (tags is null)
             return false;
 
-        if (tags.TryGetValue("artist", out var artist) && artist.Length > 0)
+        if (tags.TryGetValue("artists", out var artist) && artist.Length > 0)
             track.ArtistsDisplay = artist;
 
         if (tags.TryGetValue("title", out var title) && title.Length > 0)
             track.Title = title;
 
-        if (tags.TryGetValue("genre", out var genre) && genre.Length > 0)
+        if (tags.TryGetValue("genres", out var genre) && genre.Length > 0)
             track.GenresDisplay = genre;
 
         if (tags.TryGetValue("bpm", out var bpm)
             && double.TryParse(bpm, NumberStyles.Float, CultureInfo.InvariantCulture, out var bpmValue))
             track.Bpm = bpmValue;
+
+        if (tags.TryGetValue("filename", out var filename) && filename.Length > 0)
+            track.FileName = filename;
 
         return true;
     }

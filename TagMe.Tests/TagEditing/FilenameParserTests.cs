@@ -15,7 +15,7 @@ public class FilenameParserTests
             Genres = ["TestGenre"]
         };
         
-        var formula = "%Artist% separator %tiTle% (%genrE%)"; // casing shouldn't matter
+        var formula = "%Artists% separator %tiTle% (%genrEs%)"; // casing shouldn't matter
         var expectedFilename = "TestArtist separator TestTitle (TestGenre)";
         
         var filename = FilenameParser.ParseFilename(testTrack, formula);
@@ -32,7 +32,7 @@ public class FilenameParserTests
             Genres = ["TestGenre"]
         };
         
-        var formula = "%notexistingmask% separator %title% (%genre%)";
+        var formula = "%notexistingmask% separator %title% (%genres%)";
         
         Assert.Throws<NotSupportedException>(() => FilenameParser.ParseFilename(testTrack, formula));
     }

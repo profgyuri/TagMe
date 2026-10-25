@@ -24,9 +24,9 @@ public static class FormulaVariants
     {
         return formula.ToLower() switch
         {
-            "%artist%" => track.ArtistsDisplay,
+            "%artists%" => track.ArtistsDisplay,
             "%title%" => track.Title,
-            "%genre%" => track.GenresDisplay,
+            "%genres%" => track.GenresDisplay,
             "%bitrate%" => track.BitRate.ToString(CultureInfo.InvariantCulture),
             "%samplerate%" => track.SampleRate.ToString(CultureInfo.InvariantCulture),
             "%bpm%" => track.Bpm.ToString(CultureInfo.InvariantCulture),

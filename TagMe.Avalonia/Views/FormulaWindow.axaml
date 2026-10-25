@@ -14,18 +14,36 @@
         <viewModels:FormulaViewModel />
     </Design.DataContext>
     
-    <Grid RowDefinitions="Auto * Auto"
-          Margin="8">
+    <Grid RowDefinitions="Auto * Auto" Margin="8">
         <TextBox Grid.Row="0" x:Name="FormulaTextBox" 
                  Text="{Binding Formula, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.ContextMenu>
                 <ContextMenu>
+                    <!-- We add only the fields that make at least a little sense - the rest can be edited manually -->
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Album"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="AlbumArtists"/>
                     <MenuItem Click="ContextMenuItem_OnClick" Header="Artists"/>
-                    <MenuItem Click="ContextMenuItem_OnClick" Header="Title"/>
-                    <MenuItem Click="ContextMenuItem_OnClick" Header="Genres"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="ArtistsRoles"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="AudioChannels"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="BitsPerSample" IsEnabled="{Binding IsTagsToFilename}"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="BitRate" IsEnabled="{Binding IsTagsToFilename}"/>
                     <MenuItem Click="ContextMenuItem_OnClick" Header="Bpm"/>
-                    <MenuItem Click="ContextMenuItem_OnClick" Header="SampleRate" IsEnabled="{Binding IsTagsToFilename}"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Comment"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Composers"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Conductor"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Copyright"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="DiscNumber"/>
                     <MenuItem Click="ContextMenuItem_OnClick" Header="Filename" IsEnabled="{Binding IsTagsToFilename}"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Genres"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Grouping"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="InitialKey"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Length"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Publisher"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="RemixedBy"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="SampleRate" IsEnabled="{Binding IsTagsToFilename}"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Title"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="TrackNumber"/>
+                    <MenuItem Click="ContextMenuItem_OnClick" Header="Year"/>
                 </ContextMenu>
             </TextBox.ContextMenu>
         </TextBox>

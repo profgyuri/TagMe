@@ -1,9 +1,12 @@
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using TagLib;
 using TagMe.Avalonia.Models;
 using TagMe.Avalonia.ViewModels;
 
@@ -116,5 +119,29 @@ public partial class MainWindow : Window
         if (dialogResult.Count == 0) return;
         
         await vm.MoveFilesAsync(dialogResult[0].Path.LocalPath);
+    }
+
+    private async void ChangeCoverButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Control { DataContext: Track row })
+            return;
+
+        var topLevel = GetTopLevel(this);
+        if (topLevel is null) return;
+
+        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "Select cover image",
+            AllowMultiple = false,
+            FileTypeFilter = new[] { FilePickerFileTypes.ImageAll }
+        });
+
+        var path = files.Count > 0 ? files[0].TryGetLocalPath() : null;
+        if (path is null) return;
+
+        var picture = new Picture(path) { Type = PictureType.FrontCover };
+
+        using var stream = new MemoryStream(picture.Data.Data);
+        row.SetCover(picture, Bitmap.DecodeToWidth(stream, 24));
     }
 }
