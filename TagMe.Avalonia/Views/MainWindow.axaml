@@ -112,9 +112,9 @@
                 <DataGridTextColumn Header="Publisher" Binding="{Binding Publisher, UpdateSourceTrigger=LostFocus}"/>
                 <DataGridTextColumn Header="ISRC" Binding="{Binding ISRC, UpdateSourceTrigger=LostFocus}"/>
                 <DataGridTextColumn Header="Length" Binding="{Binding Length, UpdateSourceTrigger=LostFocus}"/>
-                <DataGridTextColumn Header="Duration" Binding="{Binding Duration, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Bits per Sample" Binding="{Binding BitsPerSample, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Audio Channels" Binding="{Binding AudioChannels, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Bits per Sample" Binding="{Binding BitsPerSample}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Audio Channels" Binding="{Binding AudioChannels}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="MusicBrainz Artist ID" Binding="{Binding MusicBrainzArtistId, UpdateSourceTrigger=LostFocus}"/>
                 <DataGridTextColumn Header="MusicBrainz Track ID" Binding="{Binding MusicBrainzTrackId, UpdateSourceTrigger=LostFocus}"/>
                 <DataGridTextColumn Header="MusicBrainz Disc ID" Binding="{Binding MusicBrainzDiscId, UpdateSourceTrigger=LostFocus}"/>

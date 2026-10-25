@@ -29,6 +29,8 @@ public partial class FormulaWindow : Window
         
         var caretPosition = FormulaTextBox.CaretIndex;
         var oldText = FormulaTextBox.Text;
-        FormulaTextBox.Text = oldText?.Insert(caretPosition, FormulaVariants.GetFormulaVariantForField((string)item.Header!));
+        var formulaVariant = FormulaVariants.GetFormulaVariantForField((string)item.Header!);
+        FormulaTextBox.Text = oldText?.Insert(caretPosition, formulaVariant);
+        FormulaTextBox.CaretIndex = caretPosition + formulaVariant.Length;
     }
 }

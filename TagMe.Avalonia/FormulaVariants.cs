@@ -8,16 +8,7 @@ public static class FormulaVariants
 {
     public static string GetFormulaVariantForField(string fieldName)
     {
-        return fieldName switch
-        {
-            nameof(Track.Artists) => "%artist%",
-            nameof(Track.Genres) => "%genre%",
-            nameof(Track.Title) 
-                or nameof(Track.Bpm) 
-                or nameof(Track.SampleRate) 
-                or nameof(Track.FileName) => $"%{fieldName.ToLowerInvariant()}%",
-            _ => throw new NotSupportedException($"Given field name '{fieldName}' is invalid"),
-        };
+        return $"%{fieldName.ToLowerInvariant()}%";
     }
     
     public static string GetFieldValueForFormula(Track track, string formula)
