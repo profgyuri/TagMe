@@ -97,27 +97,49 @@ public partial class Track
     
     private void ApplyTagUpdate(TagLib.Tag tag, Track track)
     {
-        if (track.Artists.Length != 0)
-        {
-            tag.Performers = track.Artists;
+        tag.Performers = track.Artists;
 
-            if (tag is TagLib.Riff.InfoTag riffInfoTag)
-            {
-                riffInfoTag.Performers = track.Artists;
-            }
+        if (tag is TagLib.Riff.InfoTag riffInfoTag)
+        {
+            riffInfoTag.Performers = track.Artists;
         }
 
-        if (!string.IsNullOrWhiteSpace(track.Title))
-        {
-            tag.Title = track.Title;
-        }
-
-        if (track.Genres.Length != 0)
-        {
-            tag.Genres = track.Genres;
-        }
-
+        tag.Title = track.Title;
+        tag.Genres = track.Genres;
         tag.BeatsPerMinute = (uint)track.Bpm;
+        tag.PerformersRole = track.ArtistsRoles;
+        tag.AlbumArtists = track.AlbumArtists;
+        tag.Composers = track.Composers;
+        tag.InitialKey = track.InitialKey;
+        tag.RemixedBy = track.RemixedBy;
+        tag.Publisher = track.Publisher;
+        tag.ISRC = track.ISRC;
+        tag.Length = track.Length;
+        tag.Album = track.Album;
+        tag.Comment = track.Comment;
+        tag.Year = track.Year;
+        tag.Track = track.TrackNumber;
+        tag.Disc = track.DiscNumber;
+        tag.Lyrics = track.Lyrics;
+        tag.Grouping = track.Grouping;
+        tag.Conductor = track.Conductor;
+        tag.Copyright = track.Copyright;
+        tag.MusicBrainzArtistId = track.MusicBrainzArtistId;
+        tag.MusicBrainzReleaseGroupId = track.MusicBrainzReleaseGroupId;
+        tag.MusicBrainzReleaseId = track.MusicBrainzReleaseId;
+        tag.MusicBrainzReleaseArtistId = track.MusicBrainzReleaseArtistId;
+        tag.MusicBrainzTrackId = track.MusicBrainzTrackId;
+        tag.MusicBrainzDiscId = track.MusicBrainzDiscId;
+        tag.MusicIpId = track.MusicIpId;
+        tag.AmazonId = track.AmazonId;
+        tag.MusicBrainzReleaseStatus = track.MusicBrainzReleaseStatus;
+        tag.MusicBrainzReleaseType = track.MusicBrainzReleaseType;
+        tag.MusicBrainzReleaseCountry = track.MusicBrainzReleaseCountry;
+        tag.ReplayGainTrackGain = track.ReplayGainTrackGain;
+        tag.ReplayGainTrackPeak = track.ReplayGainTrackPeak;
+        tag.ReplayGainAlbumGain = track.ReplayGainAlbumGain;
+        tag.ReplayGainAlbumPeak = track.ReplayGainAlbumPeak;
+        tag.Length = track.Length;
         
         // RiffInfoTag doesn't support pictures
         if (_pendingCover is not null && tag is not TagLib.Riff.InfoTag)
@@ -147,6 +169,38 @@ public partial class Track
             nameof(FileName) => FileName,
             nameof(Path) => Path,
             nameof(Cover) => Cover is null ? "" : RuntimeHelpers.GetHashCode(Cover).ToString(CultureInfo.InvariantCulture),
+            nameof(ArtistsRoles) or nameof(ArtistsRoleDisplay) => ArtistsRoleDisplay,
+            nameof(AlbumArtists) or nameof(AlbumArtistsDisplay) => AlbumArtistsDisplay,
+            nameof(Composers) or nameof(ComposersDisplay) => ComposersDisplay,
+            nameof(Album) => Album,
+            nameof(Comment) => Comment,
+            nameof(Year) => Year.ToString(CultureInfo.InvariantCulture),
+            nameof(TrackNumber) => TrackNumber.ToString(CultureInfo.InvariantCulture),
+            nameof(DiscNumber) => DiscNumber.ToString(CultureInfo.InvariantCulture),
+            nameof(Lyrics) => Lyrics,
+            nameof(Grouping) => Grouping,
+            nameof(Conductor) => Conductor,
+            nameof(Copyright) => Copyright,
+            nameof(MusicBrainzArtistId) => MusicBrainzArtistId,
+            nameof(MusicBrainzReleaseGroupId) => MusicBrainzReleaseGroupId,
+            nameof(MusicBrainzReleaseId) => MusicBrainzReleaseId,
+            nameof(MusicBrainzReleaseArtistId) => MusicBrainzReleaseArtistId,
+            nameof(MusicBrainzTrackId) => MusicBrainzTrackId,
+            nameof(MusicBrainzDiscId) => MusicBrainzDiscId,
+            nameof(MusicIpId) => MusicIpId,
+            nameof(AmazonId) => AmazonId,
+            nameof(MusicBrainzReleaseStatus) => MusicBrainzReleaseStatus,
+            nameof(MusicBrainzReleaseType) => MusicBrainzReleaseType,
+            nameof(MusicBrainzReleaseCountry) => MusicBrainzReleaseCountry,
+            nameof(ReplayGainTrackGain) => ReplayGainTrackGain.ToString(CultureInfo.InvariantCulture),
+            nameof(ReplayGainTrackPeak) => ReplayGainTrackPeak.ToString(CultureInfo.InvariantCulture),
+            nameof(ReplayGainAlbumGain) => ReplayGainAlbumGain.ToString(CultureInfo.InvariantCulture),
+            nameof(ReplayGainAlbumPeak) => ReplayGainAlbumPeak.ToString(CultureInfo.InvariantCulture),
+            nameof(InitialKey) => InitialKey,
+            nameof(RemixedBy) => RemixedBy,
+            nameof(Publisher) => Publisher,
+            nameof(ISRC) => ISRC,
+            nameof(Length) => Length,
             _ => ""
         };
     }
