@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using Avalonia.Media.Imaging;
 using TagLib;
 using File = System.IO.File;
