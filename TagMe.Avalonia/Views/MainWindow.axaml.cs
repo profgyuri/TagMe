@@ -17,7 +17,19 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        Loaded += (sender, args) =>
+        {
+            Settings.LoadColumnVisibility().ToList()
+                .ForEach(c => 
+                    Grid.Columns.First(x => x.Header.ToString() == c.Key).IsVisible = c.Value);
+        };
         ColumnHeaderMenu.ItemsSource = Grid.Columns;
+        ColumnHeaderMenu.Closed += ColumnHeaderMenuOnClosed;
+    }
+
+    private void ColumnHeaderMenuOnClosed(object? sender, RoutedEventArgs e)
+    {
+        Settings.SaveColumnVisibility(Grid.Columns.ToDictionary(c => c.Header.ToString()!, c => c.IsVisible));
     }
 
     private void Grid_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)

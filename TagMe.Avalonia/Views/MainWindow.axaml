@@ -83,10 +83,10 @@
                 </Style>
             </DataGrid.Styles>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Artists" Binding="{Binding ArtistsDisplay, UpdateSourceTrigger=LostFocus}" />
-                <DataGridTextColumn Header="Title" Binding="{Binding Title, UpdateSourceTrigger=LostFocus}" />
-                <DataGridTextColumn Header="Genres" Binding="{Binding GenresDisplay, UpdateSourceTrigger=LostFocus}" />
-                <DataGridTextColumn Header="BPM" Binding="{Binding Bpm, UpdateSourceTrigger=LostFocus}" />
+                <DataGridTextColumn Header="Artists" Binding="{Binding ArtistsDisplay, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="Genres" Binding="{Binding GenresDisplay, UpdateSourceTrigger=LostFocus}"/>
+                <DataGridTextColumn Header="BPM" Binding="{Binding Bpm, UpdateSourceTrigger=LostFocus}"/>
                 <DataGridTextColumn Header="Bitrate" Binding="{Binding BitRate}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Sample Rate" Binding="{Binding SampleRate}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="File Name" Binding="{Binding FileName, UpdateSourceTrigger=LostFocus}"/>
