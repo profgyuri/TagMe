@@ -5,7 +5,8 @@
         xmlns:icons="using:Material.Icons.Avalonia"
         xmlns:viewModels="clr-namespace:TagMe.Avalonia.ViewModels"
         xmlns:models="clr-namespace:TagMe.Avalonia.Models"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" 
+        Width="700" Height="450" MinWidth="450" MinHeight="250"
         x:Class="TagMe.Avalonia.Views.MainWindow"
         x:DataType="viewModels:MainViewModel"
         Icon="/Assets/avalonia-logo.ico"
@@ -129,17 +130,11 @@
                 <DataGridTemplateColumn Header="Cover">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="models:Track">
-                            <Image Source="{Binding Cover}" Width="48" Height="48" Stretch="UniformToFill" />
+                            <Button Click="ChangeCoverButton_OnClick">
+                                <Image Source="{Binding Cover}" Width="48" Height="48" Stretch="UniformToFill" />
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate x:DataType="models:Track">
-                            <StackPanel Orientation="Horizontal" Spacing="8">
-                                <Image Source="{Binding Cover}" Width="48" Height="48" Stretch="UniformToFill" />
-                                <Button Content="Change..." Click="ChangeCoverButton_OnClick"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>

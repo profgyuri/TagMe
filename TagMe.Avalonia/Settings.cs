@@ -8,7 +8,7 @@ namespace TagMe.Avalonia;
 
 public static class Settings
 {
-    private static readonly string _gridLayoutPath = Path.Combine(
+    private static readonly string GridLayoutPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
         "tagme",
         "grid-layout.json");
@@ -17,7 +17,7 @@ public static class Settings
     {
         CheckGridLayoutFileExists();
         
-        File.WriteAllText(_gridLayoutPath, JsonSerializer.Serialize(visibleColumns, AppJsonContext.Default.DictionaryStringBoolean));
+        File.WriteAllText(GridLayoutPath, JsonSerializer.Serialize(visibleColumns, AppJsonContext.Default.DictionaryStringBoolean));
     }
     
     public static Dictionary<string, bool> LoadColumnVisibility()
@@ -26,7 +26,7 @@ public static class Settings
 
         try
         {
-            return JsonSerializer.Deserialize<Dictionary<string, bool>>(File.ReadAllText(_gridLayoutPath),
+            return JsonSerializer.Deserialize<Dictionary<string, bool>>(File.ReadAllText(GridLayoutPath),
                 AppJsonContext.Default.DictionaryStringBoolean) ?? new();
         }
         catch
@@ -37,12 +37,12 @@ public static class Settings
     
     private static void CheckGridLayoutFileExists()
     {
-        var dir = new FileInfo(_gridLayoutPath).Directory!;
+        var dir = new FileInfo(GridLayoutPath).Directory!;
         if (!dir.Exists)
             Directory.CreateDirectory(dir.FullName);
         
-        if (!File.Exists(_gridLayoutPath))
-            File.Create(_gridLayoutPath).Dispose();
+        if (!File.Exists(GridLayoutPath))
+            File.Create(GridLayoutPath).Dispose();
     }
 }
 
