@@ -6,6 +6,7 @@
         xmlns:viewModels="clr-namespace:TagMe.Avalonia.ViewModels"
         xmlns:models="clr-namespace:TagMe.Avalonia.Models"
         mc:Ignorable="d" 
+        Background="{DynamicResource WindowBackgroundBrush}"
         Width="700" Height="450" MinWidth="450" MinHeight="250"
         x:Class="TagMe.Avalonia.Views.MainWindow"
         x:DataType="viewModels:MainViewModel"
@@ -29,24 +30,32 @@
         </ContextMenu>
     </Window.Resources>
 
-    <Grid RowDefinitions="Auto *">
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
+    <Grid RowDefinitions="Auto *" Margin="0 8 0 0">
+        <StackPanel Grid.Row="0" 
+                    Orientation="Horizontal" 
+                    Spacing="6" 
+                    HorizontalAlignment="Center"
+                    Margin="0 0 0 8">
             <!-- Controls -->
             <Button Click="AddFiles_OnClick"
-                    ToolTip.Tip="Add files">
+                    ToolTip.Tip="Add files"
+                    Classes="header">
                 <icons:MaterialIcon Kind="FileDocumentAdd"/>
             </Button>
             <Button Click="AddFolder_OnClick"
-                    ToolTip.Tip="Add folder">
+                    ToolTip.Tip="Add folder"
+                    Classes="header">
                 <icons:MaterialIcon Kind="FolderAdd"/>
             </Button>
             <Button Command="{Binding ClearGridCommand}" 
-                    ToolTip.Tip="Clear grid">
+                    ToolTip.Tip="Clear grid"
+                    Classes="header">
                 <icons:MaterialIcon Kind="ClearCircle"/>
             </Button>
-            <Separator Width="5"/>
+            <Separator Width="5" Margin="4"/>
             <Button Click="TagsToFilename_OnClick"
-                    ToolTip.Tip="Tags to filename">
+                    ToolTip.Tip="Tags to filename"
+                    Classes="header">
                 <StackPanel Orientation="Horizontal">
                     <icons:MaterialIcon Kind="Tag"/>
                     <icons:MaterialIcon Kind="ArrowRight"/>
@@ -54,16 +63,18 @@
                 </StackPanel>
             </Button>
             <Button Click="FilenameToTags_OnClick"
-                    ToolTip.Tip="Filename to tags">
+                    ToolTip.Tip="Filename to tags"
+                    Classes="header">
                 <StackPanel Orientation="Horizontal">
                     <icons:MaterialIcon Kind="FileDocument"/>
                     <icons:MaterialIcon Kind="ArrowRight"/>
                     <icons:MaterialIcon Kind="Tag"/>
                 </StackPanel>
             </Button>
-            <Separator Width="5"/>
+            <Separator Width="5" Margin="4"/>
             <Button Click="MoveFiles_OnClick"
-                    ToolTip.Tip="Move files">
+                    ToolTip.Tip="Move files"
+                    Classes="header">
                 <icons:MaterialIcon Kind="FileDocumentMove"/>
             </Button>
         </StackPanel>
@@ -77,10 +88,14 @@
                   CanUserSortColumns="True"
                   SelectionMode="Extended"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  BorderThickness="0 1 0 0"
+                  BorderBrush="#444">
             <DataGrid.Styles>
                 <Style Selector="DataGridColumnHeader">
-                    <Setter Property="ContextMenu" Value="{StaticResource ColumnHeaderMenu}" />
+                    <Setter Property="ContextMenu" Value="{StaticResource ColumnHeaderMenu}"/>
+                    <Setter Property="Background" Value="{DynamicResource ColumnHeaderBackgroundBrush}"/>
+                    <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=Foreground}"/>
                 </Style>
             </DataGrid.Styles>
             <DataGrid.Columns>
@@ -130,8 +145,8 @@
                 <DataGridTemplateColumn Header="Cover">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="models:Track">
-                            <Button Click="ChangeCoverButton_OnClick">
-                                <Image Source="{Binding Cover}" Width="48" Height="48" Stretch="UniformToFill" />
+                            <Button Click="ChangeCoverButton_OnClick" Padding="0" HorizontalAlignment="Center">
+                                <Image Source="{Binding Cover}" Width="26" Height="26" Stretch="UniformToFill" />
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

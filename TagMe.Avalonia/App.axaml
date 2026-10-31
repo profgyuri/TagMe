@@ -3,12 +3,48 @@
              x:Class="TagMe.Avalonia.App"
              xmlns:local="using:TagMe.Avalonia"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             RequestedThemeVariant="Default">
+             RequestedThemeVariant="Light">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+             
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="HeaderButtonHoverBrush">#bdbdbd</SolidColorBrush>
+                    <SolidColorBrush x:Key="HeaderButtonPressedBrush">#a1a1a1</SolidColorBrush>
+                    <SolidColorBrush x:Key="ColumnHeaderBackgroundBrush">#ddd</SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="HeaderButtonHoverBrush">#434343</SolidColorBrush>
+                    <SolidColorBrush x:Key="HeaderButtonPressedBrush">#5d5d5d</SolidColorBrush>
+                    <SolidColorBrush x:Key="WindowBackgroundBrush">#1a1a1a</SolidColorBrush>
+                    <SolidColorBrush x:Key="ColumnHeaderBackgroundBrush">#151515</SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 
     <Application.Styles>
         <FluentTheme />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         <materialIcons:MaterialIconStyles/>
+        
+        <Style Selector="Button.header">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="8 6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=Foreground}"/>
+        </Style>
+        <Style Selector="Button.header:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource HeaderButtonHoverBrush}"/>
+            <Setter Property="Border.BorderThickness" Value="1"/>
+            <Setter Property="Border.BorderBrush" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=Foreground}"/>
+        </Style>
+        <Style Selector="Button.header:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource HeaderButtonPressedBrush}"/>
+            <Setter Property="Border.BorderThickness" Value="1"/>
+            <Setter Property="Border.BorderBrush" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=Foreground}"/>
+        </Style>
     </Application.Styles>
 </Application>

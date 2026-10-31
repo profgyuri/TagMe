@@ -6,6 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using Avalonia.Styling;
 using TagLib;
 using TagMe.Avalonia.Models;
 using TagMe.Avalonia.ViewModels;
@@ -17,6 +18,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        
         Loaded += (sender, args) =>
         {
             Settings.LoadColumnVisibility().ToList()

@@ -20,7 +20,7 @@ public static class Extensions
 
             using var stream = new MemoryStream(picture.Data.Data);
 
-            return Bitmap.DecodeToWidth(stream, 48);
+            return Bitmap.DecodeToWidth(stream, 26);
         }
     }
 }
