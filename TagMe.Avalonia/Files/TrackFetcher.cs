@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Enumeration;
 using System.Linq;
 using TagMe.Avalonia.Models;
 
@@ -16,6 +17,8 @@ public class TrackFetcher : ITrackFetcher
     {
         return new DirectoryInfo(path)
             .EnumerateFiles()
+            .Where(info => SupportedFileTypes.Audio.Patterns!.Any(pattern => 
+                FileSystemName.MatchesSimpleExpression(pattern, info.Name, ignoreCase: true)))
             .Select(info => AnalyzeFilePath(info.FullName));
     }
 

@@ -1,7 +1,6 @@
 using System;
 using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
-using TagLib;
 
 namespace TagMe.Avalonia.Models;
 

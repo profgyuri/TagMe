@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using Avalonia.Media.Imaging;
@@ -20,7 +21,14 @@ public static class Extensions
 
             using var stream = new MemoryStream(picture.Data.Data);
 
-            return Bitmap.DecodeToWidth(stream, 26);
+            try
+            {
+                return Bitmap.DecodeToWidth(stream, 26);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
