@@ -34,17 +34,30 @@
             <Setter Property="Padding" Value="8 6"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=Foreground}"/>
+            <Setter Property="BorderBrush" Value="{Binding $parent[Window].Foreground}"/>
+            
+            <Style Selector="^:pointerover /template/ ContentPresenter">
+                <Setter Property="Background" Value="{DynamicResource HeaderButtonHoverBrush}"/>
+                <Setter Property="Border.BorderThickness" Value="1"/>
+                <Setter Property="Border.BorderBrush" Value="{Binding $parent[Window].Foreground}"/>
+            </Style>
+            <Style Selector="^:pressed /template/ ContentPresenter">
+                <Setter Property="Background" Value="{DynamicResource HeaderButtonPressedBrush}"/>
+                <Setter Property="Border.BorderThickness" Value="1"/>
+                <Setter Property="Border.BorderBrush" Value="{Binding $parent[Window].Foreground}"/>
+            </Style>
         </Style>
-        <Style Selector="Button.header:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="{DynamicResource HeaderButtonHoverBrush}"/>
-            <Setter Property="Border.BorderThickness" Value="1"/>
-            <Setter Property="Border.BorderBrush" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=Foreground}"/>
-        </Style>
-        <Style Selector="Button.header:pressed /template/ ContentPresenter">
-            <Setter Property="Background" Value="{DynamicResource HeaderButtonPressedBrush}"/>
-            <Setter Property="Border.BorderThickness" Value="1"/>
-            <Setter Property="Border.BorderBrush" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=Foreground}"/>
+        <Style Selector="TextBox.filter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="8 0 8 8"/>
+            <Setter Property="BorderBrush" Value="{Binding $parent[Window].Foreground}"/>
+            
+            <Style Selector="^:pointerover /template/ Border">
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
+            <Style Selector="^:focus /template/ Border">
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
         </Style>
     </Application.Styles>
 </Application>

@@ -15,7 +15,7 @@ public partial class Track : ObservableObject
     }
     
     [ObservableProperty] 
-    public partial string Title { get; set; }
+    public partial string Title { get; set; } = string.Empty;
     [ObservableProperty, NotifyPropertyChangedFor(nameof(GenresDisplay))] 
     public partial string[] Genres { get; set; } = [];
     public string GenresDisplay
@@ -31,9 +31,9 @@ public partial class Track : ObservableObject
     [ObservableProperty] 
     public partial double BitRate { get; set; }
     [ObservableProperty] 
-    public partial string Path { get; set; }
+    public partial string Path { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string FileName { get; set; }
+    public partial string FileName { get; set; } = string.Empty;
     [ObservableProperty] 
     public partial string[] ArtistsRoles { get; set; } = [];
     public string ArtistsRoleDisplay
@@ -56,9 +56,9 @@ public partial class Track : ObservableObject
         set => Composers = value.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
     }
     [ObservableProperty] 
-    public partial string Album { get; set; }
+    public partial string Album { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string Comment { get; set; }
+    public partial string Comment { get; set; } = string.Empty;
     [ObservableProperty] 
     public partial uint Year { get; set; }
     [ObservableProperty] 
@@ -66,35 +66,35 @@ public partial class Track : ObservableObject
     [ObservableProperty] 
     public partial uint DiscNumber { get; set; }
     [ObservableProperty] 
-    public partial string Lyrics { get; set; }
+    public partial string Lyrics { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string Grouping { get; set; }
+    public partial string Grouping { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string Conductor { get; set; }
+    public partial string Conductor { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string Copyright { get; set; }
+    public partial string Copyright { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string MusicBrainzArtistId { get; set; }
+    public partial string MusicBrainzArtistId { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string MusicBrainzReleaseGroupId { get; set; }
+    public partial string MusicBrainzReleaseGroupId { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string MusicBrainzReleaseId { get; set; }
+    public partial string MusicBrainzReleaseId { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string MusicBrainzReleaseArtistId { get; set; }
+    public partial string MusicBrainzReleaseArtistId { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string MusicBrainzTrackId { get; set; }
+    public partial string MusicBrainzTrackId { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string MusicBrainzDiscId { get; set; }
+    public partial string MusicBrainzDiscId { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string MusicIpId { get; set; }
+    public partial string MusicIpId { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string AmazonId { get; set; }
+    public partial string AmazonId { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string MusicBrainzReleaseStatus { get; set; }
+    public partial string MusicBrainzReleaseStatus { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string MusicBrainzReleaseType { get; set; }
+    public partial string MusicBrainzReleaseType { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string MusicBrainzReleaseCountry { get; set; }
+    public partial string MusicBrainzReleaseCountry { get; set; } = string.Empty;
     [ObservableProperty] 
     public partial double ReplayGainTrackGain { get; set; }
     [ObservableProperty] 
@@ -104,15 +104,15 @@ public partial class Track : ObservableObject
     [ObservableProperty] 
     public partial double ReplayGainAlbumPeak { get; set; }
     [ObservableProperty] 
-    public partial string InitialKey { get; set; }
+    public partial string InitialKey { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string RemixedBy { get; set; }
+    public partial string RemixedBy { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string Publisher { get; set; }
+    public partial string Publisher { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string ISRC { get; set; }
+    public partial string ISRC { get; set; } = string.Empty;
     [ObservableProperty] 
-    public partial string Length { get; set; }
+    public partial string Length { get; set; } = string.Empty;
     [ObservableProperty] 
     public partial Bitmap? Cover { get; set; }
     [ObservableProperty] 

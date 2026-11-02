@@ -30,7 +30,7 @@
         </ContextMenu>
     </Window.Resources>
 
-    <Grid RowDefinitions="Auto *" Margin="0 8 0 0">
+    <Grid RowDefinitions="Auto Auto *" Margin="0 8 0 0">
         <StackPanel Grid.Row="0" 
                     Orientation="Horizontal" 
                     Spacing="6" 
@@ -79,7 +79,14 @@
             </Button>
         </StackPanel>
         
-        <DataGrid Grid.Row="1" x:Name="Grid"
+        <Grid Grid.Row="1" ColumnDefinitions="Auto *">
+            <TextBlock Grid.Column="0" Text="Filter:" Margin="0 6 0 0"/>
+            <TextBox Grid.Column="1" 
+                     Text="{Binding FilterText}"
+                     Classes="filter"/>
+        </Grid>
+        
+        <DataGrid Grid.Row="2" x:Name="Grid"
                   ItemsSource="{Binding TrackList}"
                   SelectionChanged="Grid_OnSelectionChanged"
                   AutoGenerateColumns="False"

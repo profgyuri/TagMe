@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -26,26 +27,36 @@ public partial class MainViewModel : ViewModelBase
         _tagFilenameEditor = tagFilenameEditor;
     }
 
+    private List<Track> _allTracks = new();
+    
     [ObservableProperty] public partial ObservableCollection<Track> TrackList { get; set; } = new();
 
     [ObservableProperty] public partial ObservableCollection<Track> SelectedItems { get; set; } = new();
     
+    [ObservableProperty] public partial string FilterText { get; set; } = string.Empty;
+    
     public void AddFiles(IEnumerable<string> files)
     {
+        FilterText = string.Empty;
         var tracks = _trackFetcher.GetFromFilePaths(files);
         foreach (var track in tracks)
         {
-            TrackList.Add(track);
+            _allTracks.Add(track);
         }
+
+        TrackList = new(_allTracks);
     }
 
     public void AddFolder(string folder)
     {
+        FilterText = string.Empty;
         var  tracks = _trackFetcher.GetFromFolderPath(folder);
         foreach (var track in tracks)
         {
-            TrackList.Add(track);
+            _allTracks.Add(track);
         }
+        
+        TrackList = new(_allTracks);
     }
     
     public void TagsToFilename(string formula)
@@ -77,6 +88,16 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     private void ClearGrid()
     {
+        FilterText = string.Empty;
+        _allTracks.Clear();
         TrackList.Clear();
+    }
+
+    partial void OnFilterTextChanged(string value)
+    {
+        var filtered = string.IsNullOrEmpty(value) 
+            ? _allTracks 
+            : _allTracks.FilterByValue(value);
+        TrackList = new(filtered);
     }
 }
