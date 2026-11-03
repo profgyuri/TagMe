@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -93,11 +94,23 @@ public partial class MainViewModel : ViewModelBase
         TrackList.Clear();
     }
 
-    partial void OnFilterTextChanged(string value)
+    private CancellationTokenSource _filterDebounceToken = new();
+    
+    async partial void OnFilterTextChanged(string value)
     {
-        var filtered = string.IsNullOrEmpty(value) 
-            ? _allTracks 
-            : _allTracks.FilterByValue(value);
-        TrackList = new(filtered);
+        await _filterDebounceToken?.CancelAsync()!;
+        _filterDebounceToken?.Dispose();
+        _filterDebounceToken = new();
+        
+        try
+        {
+            await Task.Delay(300, _filterDebounceToken.Token);
+            var filtered = string.IsNullOrEmpty(value)
+                ? _allTracks
+                : _allTracks.FilterByValue(value);
+            TrackList = new(filtered);
+        }
+        catch (OperationCanceledException)
+        { }
     }
 }
