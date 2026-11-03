@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & discussion
+    url: https://github.com/profgyuri/TagMe/discussions
+    about: Ask usage questions here instead of opening an issue
+  - name: Discord
+    url: https://discord.gg/QUsAy8nTmn
+    about: Join the discord server, if you wouldd rather discuss something there
