@@ -33,5 +33,3 @@ body:
       options:
         - label: Linux
         - label: Windows
-      validations:
-        required: true
