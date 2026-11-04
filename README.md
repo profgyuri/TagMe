@@ -11,7 +11,7 @@ Before you take my head off: the initial state of the code is intentionally this
 
   ## How to contribute
 
-Feel free to look at the code, and if you find something that could be done better, just give it a try. The only goal of any PR in this repo is simply "just make it better than you found it".
+Feel free to look at the code, and if you find something that could be done better, just give it a try. The only goal of any PR in this repo is simply "just make it better than you found it" (but it has to work on Windows and Linux at least).
 
 If you still don't know where to start, I already prepared some issues. Try to find one that seems like a fun solve 🙂
 
